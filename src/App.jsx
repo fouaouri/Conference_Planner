@@ -3,11 +3,19 @@ import './App.css';
 import Meals from "./components/Meals";
 import Venue from "./components/Venue";
 import AddOns from "./components/addOns";
-
-
+import cRoom from "./assets/conferenceroom.jpg"
+import auditorium from "./assets/auditorium.avif"
+import pRoom from "./assets/presentationroom.jpg"
+import lmeetingRoom from "./assets/largemeetingroom.jpg"
+import smeetingRoom from "./assets/smallmeetingroom.jpg"
+import projector from "./assets/projector.webp"
+import speaker from "./assets/speaker.jpg"
+import microphone from "./assets/microphone.webp"
+import whiteboard from "./assets/whiteboard.avif"
+import Signage from "./assets/Signage.jpg"
 function StartPage({ setShowMainApp }){
   
-
+  
   return (
     <>
       <div className='bg-container'></div>
@@ -58,11 +66,27 @@ function App() {
 
   const scrollToSection = (sectionName) => {
     const element = document.getElementById(sectionName);
-    console.log(element);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
+
+  const [items, setItems] = useState([
+    { name: "Conference Room", unitCost: 1500, capacity:15,quantity: 0, totalCost: 0, profilePath: cRoom },
+    { name: "Auditorium Hall", unitCost: 5500, capacity:200, quantity: 0, totalCost: 0, profilePath: auditorium},
+    { name: "Presentation Room", unitCost: 3500, capacity:50, quantity: 0, totalCost: 0, profilePath: pRoom },
+    { name: "Large Meeting Room", unitCost: 1000, capacity:10, quantity: 0, totalCost: 0, profilePath: lmeetingRoom },
+    { name: "Small Meeting Room", unitCost: 800, capacity:5, quantity: 0, totalCost: 0, profilePath: smeetingRoom },
+    { name: "Projectors", unitCost: 200, quantity: 0, totalCost: 0, profilePath: projector },
+    { name: "speaker", unitCost: 35, quantity: 0, totalCost: 0, profilePath: speaker },
+    { name: "Microphones", unitCost: 45, quantity: 0, totalCost: 0, profilePath: microphone },
+    { name: "Whiteboards", unitCost: 80, quantity: 0, totalCost: 0, profilePath: whiteboard },
+    { name: "Signage", unitCost: 80, quantity: 0, totalCost: 0, profilePath: Signage },
+    { name: "Breakfast", unitCost: 50, quantity: 0, totalCost: 0, profilePath: "../assets/conferenceroom.jpg" },
+    { name: "High Tea", unitCost: 25, quantity: 0, totalCost: 0, profilePath: "../assets/conferenceroom.jpg" },
+    { name: "Lunch", unitCost: 65, quantity: 0, totalCost: 0, profilePath: "../assets/conferenceroom.jpg" },
+    { name: "Diner", unitCost: 70, quantity: 0, totalCost: 0, profilePath: "../assets/conferenceroom.jpg" }
+  ]);
   return(
     showMainApp ? (
       <div className="App">
@@ -83,7 +107,7 @@ function App() {
               <div className='popup-content'>
                 <h2 style={{ textAlign: 'center' }}>TOTAL COST FOR THE EVENT</h2>
                 <h2 style={{ textAlign: 'center' }}>$</h2>
-				<table style={{ position: "absolute", width: '100%', textAlign: 'center', marginTop: "5%", backgroundColor: "white", color: "black", left: "30%" }}>
+				<table style={{ position: "absolute", width: '40%', textAlign: 'center', marginTop: "7%", backgroundColor: "white", color: "black", left: "30%" }}>
 
                 <thead>
                   <tr>
@@ -95,15 +119,14 @@ function App() {
                 </thead>
 
                 <tbody>
-                  {/* Dynamically populate this with table rows */}
-                  {Object.keys(selections).map((item) => {
-                    if (selections[item].quantity > 0) {
+                  {items.map((item, index) => {
+                    if (item.quantity > 0) {
                       return (
-                        <tr key={item}>
-                          <td>{item.charAt(0).toUpperCase() + item.slice(1)}</td>
-                          <td>${selections[item].price}</td>
-                          <td>{selections[item].quantity}</td>
-                          <td>${calculateSubtotal(item)}</td>
+                        <tr style={{fontSize: "120%"}} key={index}>
+                          <td>{item.name}</td>
+                          <td>${item.unitCost}</td>
+                          <td>{item.quantity}</td>
+                          <td>${item.totalCost}</td>
                         </tr>
                       );
                     }
@@ -130,9 +153,9 @@ function App() {
             </div>
           ) : (
           <>
-            <Venue />
-            <AddOns />
-            <Meals />
+            <Venue items={items} setItems={setItems} />
+            <AddOns  items={items} setItems={setItems} />
+            <Meals  items={items} setItems={setItems} />
           </>
           )}
           
