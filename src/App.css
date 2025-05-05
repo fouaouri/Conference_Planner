@@ -1,0 +1,57 @@
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.bg-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-image: url('assets/conference.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(20px);
+}
+
+.bg-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.content-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+}
+
+.content-container > div {
+  margin: 0 20px;
+  text-align: center;
+}
+
+.navbar{
+  display: flex;
+  align-items: center;
+  background-color: rgb(75, 76, 46);
+
+}
+.buttons{
+  display: flex;
+  flex-direction: row;
+  gap: 5rem;
+  margin-left: 14%;
+}
